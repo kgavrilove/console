@@ -1,0 +1,6 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^7.4",
+        "php-curl-class/php-curl-class": "^9.5"
+    }
+}
