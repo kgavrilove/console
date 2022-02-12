@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Tools;
+use App\Tools\Interfaces\ICurlCaller;
 
-class CurlCaller
+class CurlCaller implements ICurlCaller
 {
 
      public function __construct() {}
