@@ -41,13 +41,12 @@ class CurlCaller
         curl_close($ch);
         return $response;
     }
+
     public function post($url,$data)
     {
         $ch=$this->initialize($url,$data);
         $response=$this->execute($ch);
         return json_decode($response,true);
-
-
     }
 
     public function postWithToken($url,$data,$token)
@@ -56,7 +55,6 @@ class CurlCaller
         $headers=$this->setHeaders($token);
         $response=$this->execute($ch,$headers);
         return $response;
-
     }
 
     public function get($url,$token)
@@ -67,7 +65,6 @@ class CurlCaller
         return json_decode($response,true);
     }
 
-
     public function delete($url,$token)
     {
         $ch=$this->initialize($url,$data=null,$request_type="DELETE");
@@ -75,15 +72,13 @@ class CurlCaller
         $response=$this->execute($ch,$headers);
         return $response;
     }
+
     public function update($url,$data,$token)
     {
         $ch=$this->initialize($url,$data=http_build_query($data),$request_type="PUT");
         $headers=$this->setHeaders($token);
         $response=$this->execute($ch,$headers);
         return $response;
-
-
-
     }
 
 }
