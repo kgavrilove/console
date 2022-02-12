@@ -37,9 +37,7 @@ class SetFaculty extends Command
         ];
         $curl=new CurlCaller();
         $response=$curl->postWithToken('http://universityapi.loc/api/faculty',$data,Cache::get('token'));
-
-        $this->info("****");
-        //$this->info($response);
+        $this->info($response);
     }
 
     /**

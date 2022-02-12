@@ -41,6 +41,7 @@ class UpdateFaculty extends Command
         $curl=new CurlCaller();
         $response=$curl->update('http://universityapi.loc/api/faculty/'.$this->argument('id'),$data,Cache::get('token'));
         $this->info('http://universityapi.loc/api/faculty/'.$this->argument('id'));
+        $this->info($response);
     }
 
     /**

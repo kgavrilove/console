@@ -39,9 +39,7 @@ class SetStudent extends Command
         ];
         $curl=new CurlCaller();
         $response=$curl->postWithToken('http://universityapi.loc/api/student',$data,Cache::get('token'));
-
-        $this->info("****");
-          $this->info($response);
+        $this->info($response);
     }
 
     /**

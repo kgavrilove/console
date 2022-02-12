@@ -45,7 +45,7 @@ class UpdateStudent extends Command
         $response=$curl->update('http://universityapi.loc/api/student/'.$this->argument('id'),$data,Cache::get('token'));
 
         $this->info('http://universityapi.loc/api/student/'.$this->argument('id'));
-       // $this->info($response);
+        $this->info($response);
     }
 
     /**
