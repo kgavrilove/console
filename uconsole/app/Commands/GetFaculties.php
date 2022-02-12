@@ -33,10 +33,8 @@ class GetFaculties extends Command
     {
         $curl=new CurlCaller();
         $response=$curl->get('http://universityapi.loc/api/faculty',Cache::get('token'));
-        $this->info('id|      name     ');
-        foreach ($response as $faculty) {
-            $this->info($faculty['id'] . "|" . $faculty['name']);
-        }
+        $this->info($response);
+
     }
 
     /**

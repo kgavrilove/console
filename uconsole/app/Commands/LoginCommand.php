@@ -42,9 +42,12 @@ class LoginCommand extends Command
 
         $curl=new CurlCaller();
         $response=$curl->post('http://universityapi.loc/api/login',$data);
-        Cache::put('token', $response['data']['api_token']);
+        $response_object=json_decode($response, true);
+        if(!empty($response_object['data']['api_token'])){
+            Cache::put('token', $response_object['data']['api_token']);
+        }
         $this->info($this->argument('email').' '.$this->argument('password'));
-        $this->info($response['data']['api_token']);
+        $this->info($response);
     }
 
     /**

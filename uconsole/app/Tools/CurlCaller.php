@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Tools;
+use App\Exceptions\CurlException;
 use App\Tools\Interfaces\ICurlCaller;
 
 class CurlCaller implements ICurlCaller
@@ -23,6 +24,9 @@ class CurlCaller implements ICurlCaller
 
     private function setHeaders($token,$content_type=null)
     {
+        if($token==null){
+            throw CurlException::missingToken();
+        }
         $headers = array();
         if(!is_null($content_type)){
             $headers[] = "Content-Type: application/json";
@@ -45,40 +49,60 @@ class CurlCaller implements ICurlCaller
 
     public function post($url,$data)
     {
-        $ch=$this->initialize($url,$data);
-        $response=$this->execute($ch);
-        return json_decode($response,true);
+        try{
+            $ch=$this->initialize($url,$data);
+            $response=$this->execute($ch);
+        }catch (\Throwable $e){
+            $response = "Exception found: ".  $e->getMessage(). "\n". "FILE :".$e->getFile()."\n"."LINE :".$e->getLine()."\n";
+        }
+        return $response;
     }
 
     public function postWithToken($url,$data,$token)
     {
-        $ch=$this->initialize($url,$data);
-        $headers=$this->setHeaders($token);
-        $response=$this->execute($ch,$headers);
+        try{
+            $ch=$this->initialize($url,$data);
+            $headers=$this->setHeaders($token);
+            $response=$this->execute($ch,$headers);
+        }catch (\Throwable $e){
+            $response = "Exception found: ".  $e->getMessage(). "\n". "FILE :".$e->getFile()."\n"."LINE :".$e->getLine()."\n";
+        }
         return $response;
     }
 
     public function get($url,$token)
     {
-        $ch=$this->initialize($url);
-        $headers=$this->setHeaders($token,$content_type=true);
-        $response=$this->execute($ch,$headers);
-        return json_decode($response,true);
+        try{
+            $ch=$this->initialize($url);
+            $headers=$this->setHeaders($token,$content_type=true);
+            $response=$this->execute($ch,$headers);
+        }catch (\Throwable $e){
+            $response = "Exception found: ".  $e->getMessage(). "\n". "FILE :".$e->getFile()."\n"."LINE :".$e->getLine()."\n";
+        }
+        return $response;
     }
 
     public function delete($url,$token)
     {
-        $ch=$this->initialize($url,$data=null,$request_type="DELETE");
-        $headers=$this->setHeaders($token,$content_type=true);
-        $response=$this->execute($ch,$headers);
+        try{
+            $ch=$this->initialize($url,$data=null,$request_type="DELETE");
+            $headers=$this->setHeaders($token,$content_type=true);
+            $response=$this->execute($ch,$headers);
+        }catch (\Throwable $e){
+            $response = "Exception found: ".  $e->getMessage(). "\n". "FILE :".$e->getFile()."\n"."LINE :".$e->getLine()."\n";
+        }
         return $response;
     }
 
     public function update($url,$data,$token)
     {
-        $ch=$this->initialize($url,$data=http_build_query($data),$request_type="PUT");
-        $headers=$this->setHeaders($token);
-        $response=$this->execute($ch,$headers);
+        try{
+            $ch=$this->initialize($url,$data=http_build_query($data),$request_type="PUT");
+            $headers=$this->setHeaders($token);
+            $response=$this->execute($ch,$headers);
+        }catch (\Throwable $e){
+            $response = "Exception found: ".  $e->getMessage(). "\n". "FILE :".$e->getFile()."\n"."LINE :".$e->getLine()."\n";
+        }
         return $response;
     }
 
